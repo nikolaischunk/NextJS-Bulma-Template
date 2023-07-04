@@ -27,37 +27,6 @@ is-size-7 {
 .is-family-text {
   font-family: $body-font;
 }
-
-.is-title {
-  @extend .is-size-1;
-  @extend .is-family-title;
-}
-.is-sub-header {
-  @extend .is-size-3;
-  @extend .is-family-sub-title;
-  @extend .mt-2;
-}
-.is-sub-title {
-  @extend .is-size-5;
-  @extend .is-family-sub-title;
-  @extend .mt-1;
-}
 .is-text {
   font-family: $body-font;
 }
-
-/*
-HEADING
-- Rubik
-HEADING 2 (800)
-- Raleway
-CONTENT (normal)
-- Hind Vadora
-
-font-family: 'Rubik', sans-serif;
-
-font-family: 'Raleway', sans-serif;
-
-font-family: 'Hind Vadodara', sans-serif;
-
-*/
