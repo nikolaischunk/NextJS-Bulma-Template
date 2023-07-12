@@ -1,105 +1,68 @@
-// export default function Navbar() {
-// 	return (
-// 		<>
-// 			<div className="navbar" role="navigation" aria-label="main navigation">
-// 				<div className="navbar-brand">
-// 					<a className="navbar-item" href="https://bulma.io">
-// 						<img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
-// 					</a>
-
+'use client';
+import LoginLogoutButton from '@components/button/signButton';
+import { ProfilePicture } from '@components/profile-picture';
+import { isActiveAtome } from '@lib/atoms';
+import { useAtom } from 'jotai';
+import { useSession } from 'next-auth/react';
 import NavbarDropdown from './dropdown';
 import NavbarItem from './item';
 
-// 					<a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-// 						<span aria-hidden="true"></span>
-// 						<span aria-hidden="true"></span>
-// 						<span aria-hidden="true"></span>
-// 					</a>
-// 				</div>
+export default function Navbar(): JSX.Element {
+	const [isResponsiveActiv, setIsResponsiveActiv] = useAtom(isActiveAtome);
+	const { data: session } = useSession();
+	const isLoggedIn = session ? true : false;
 
-// 				<div id="navbarBasicExample" className="navbar-menu">
-// 					<div className="navbar-start">
-// 						<a className="navbar-item"> Home </a>
-
-// 						<a className="navbar-item"> Documentation </a>
-
-// 						<div className="navbar-item has-dropdown is-hoverable">
-// 							<a className="navbar-link"> More </a>
-
-// 							<div className="navbar-dropdown">
-// 								<a className="navbar-item"> About </a>
-// 								<a className="navbar-item"> Jobs </a>
-// 								<a className="navbar-item"> Contact </a>
-// 								<hr className="navbar-divider" />
-// 								<a className="navbar-item"> Report an issue </a>
-// 							</div>
-// 						</div>
-// 					</div>
-
-// 					<div className="navbar-end">
-// 						<div className="navbar-item">
-// 							<div className="buttons">
-// 								<a className="button is-primary">
-// 									<strong>Sign up</strong>
-// 								</a>
-// 								<a className="button is-light"> Log in </a>
-// 							</div>
-// 						</div>
-// 					</div>
-// 				</div>
-// 			</div>
-// 		</>
-// 	);
-// }
-export default function Navbar() {
-	const isActive = false;
 	return (
 		<div className="navbarComponent">
-			<nav className="navbar has-shadow is-primary mb-2" role="navigation" aria-label="main navigation">
+			<nav className="navbar has-shadow is-primary is-spaced mb-2" role="navigation" aria-label="main navigation">
 				<div className="navbar-brand">
 					<a className="navbar-item" href="#">
-						{/* <img
-                  src="https://bulma.io/images/bulma-logo.png"
-                  width="112"
-                  height="28"
-                /> */}
-						<h1 className="navbar-logo is-size-4 is-logo">Nikolai</h1>
+						<h1 className="navbar-logo is-logo">BIRTHDAYY</h1>
 					</a>
 
 					<a
 						role="button"
-						className={`navbar-burger burger ${isActive ? 'is-active' : ''}`}
+						className={`navbar-burger burger ${isResponsiveActiv ? 'is-active' : ''}`}
 						aria-label="menu"
 						aria-expanded="false"
 						data-target="navbar-rollout"
-						// onClick={handleBurgerToggle}
+						onClick={() => setIsResponsiveActiv(!isResponsiveActiv)}
 					>
 						<span aria-hidden="true"></span>
 						<span aria-hidden="true"></span>
 						<span aria-hidden="true"></span>
 					</a>
 				</div>
-
-				<div id="navbar-rollout" className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
+				<div id="navbar-rollout" className={`navbar-menu ${isResponsiveActiv ? 'is-active' : ''}`}>
 					<div className="navbar-start">
 						<NavbarItem label="Home" url="/" />
 						<NavbarItem label="NavItem" url="#" />
 
-						<NavbarDropdown label="Dropdown">
-							<NavbarItem label="Dropdown" url="#" />
-							<NavbarItem label="Dropdown" url="#" />
-							<NavbarItem label="Dropdown" url="#" />
+						<NavbarDropdown label="Auth">
+							<NavbarItem label="Me" url="/auth-test/me" />
+							<NavbarItem label="Server" url="/auth-test/server" />
+							<NavbarItem label="Client" url="/auth-test/client" />
+							<NavbarItem label="Protected" url="/auth-test/protected" />
+							<NavbarItem label="Protected" url="/auth-test/redirect" />
 						</NavbarDropdown>
 					</div>
 
-					<div className="navbar-end">
+					<div className="navbar-end columns is-mobile is-centered">
 						<div className="navbar-item mr-3">
-							<div className="buttons">
-								<a className="button is-primary">
-									<strong>Sign up</strong>
-								</a>
-								<a className="button">Log in</a>
+							<div className="buttons are-medium is-8">
+								{/* <Link
+									href="/discord"
+									className={`button is-primary is-rounded is-strong ${isResponsiveActiv ? 'is-fullwidth is-outlined' : ''}`}
+									target="_blank"
+								>
+									Discord
+								</Link> */}
+
+								<LoginLogoutButton isLoggedIn={isLoggedIn} isResponsive={isResponsiveActiv} />
 							</div>
+						</div>
+						<div className="column is-4 is-fullwidth">
+							<ProfilePicture avatarSize={isResponsiveActiv ? 48 : 64} size={256} />
 						</div>
 					</div>
 				</div>
